@@ -1,113 +1,93 @@
-import Image from "next/image";
+"use client";
+import Typewriter from "typewriter-effect";
+import { Button } from "@/components/ui/button";
+import gerneData from "@/utils/gernesData.json";
+import Link from "next/link";
 
-export default function Home() {
+const Home = () => {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+    <div>
+      <div className="w-screen md:h-[500px] h-[490px] flex md:flex-row flex-col-reverse">
+        <div className="md:w-1/2 w-full h-full flex justify-center items-center flex-col p-10 gap-8 ">
+          <h2 className="font-bold md:text-6xl text-2xl ">
+            <Typewriter
+              options={{
+                strings: [
+                  "Welcome to BattleHub",
+                  "Your Ultimate eSports Tournament Platform",
+                ],
+                autoStart: true,
+                loop: true,
+              }}
             />
-          </a>
+          </h2>
+          <p className="md:text-lg text-center text-xs font-medium ">
+            At BattleHub, we are dedicated to providing an unparalleled platform
+            for gamers to create and participate in thrilling eSports
+            tournaments. Whether you're a seasoned pro or a casual gamer,
+            BattleHub offers a seamless experience for everyone. Engage in epic
+            battles, showcase your skills, and rise to the top of the
+            leaderboards in popular games like BGMI, Free Fire, and many more.
+          </p>
+          <Button
+            variant="default"
+            color="blue"
+            size="lg"
+            className="bg-red-700"
+          >
+            Explore
+          </Button>
+        </div>
+        <div className="flex justify-center items-center md:p-14 p-8 h-full md:w-1/2 w-full">
+          <div className="border-4 rounded-lg border-black object-cover h-full w-full">
+            <img src="/img1.jpg" alt="" className=" h-full" />
+          </div>
         </div>
       </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="w-screen md:h-[500px] flex md:justify-start md:items-start justify-center items-center md:pl-14 flex-col gap-3 md:mt-3">
+        <div className="text-3xl md:text-6xl font-bold w-full md:h-[10%] h-[40px] pl-14">
+          Explore genres
+        </div>
+        <div className="text-2xl h-[80%] w-full flex justify-start items-center flex-col  md:flex-row gap-8">
+          {gerneData.map((data) => {
+            return (
+              <div
+                className=" flex justify-center items-center w-[200px] h-[100%] flex-col gap-4"
+                key={data.id}
+              >
+                <div className="w-full h-[80%]  object-fill">
+                  <img
+                    src={data.img}
+                    alt={data.name}
+                    className="rounded-md h-full"
+                  />
+                </div>
+                <Link href={`/tournament/${data.name}`}>
+                  <Button size={"lg"}>Explore</Button>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="mt-6 flex justify-center items-center text-center flex-col w-full gap-4 md:gap-8 md:h-[150px] h-[200px]">
+        <span className="text-4xl md:text-6xl font-bold w-full h-[10%] md:h-[20%] pl-10 ">
+          About Us
+        </span>
+        <p className="md:text-lg text-center text-xs font-medium px-[10px] h-[80%] md:px-[40px]">
+          BattleHub is a premier platform for eSports enthusiasts to create,
+          participate, and manage tournaments. Our mission is to bring gamers
+          together, fostering a competitive yet friendly environment where
+          everyone can showcase their skills and passion for gaming. BattleHub
+          isn't just about competition; it's about community. Connect with
+          fellow gamers, share strategies, and form alliances. Our platform
+          fosters a vibrant community where you can make friends, find
+          teammates, and stay updated on the latest eSports news. Join BattleHub
+          today and be part of a growing network of passionate gamers.
+        </p>
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default Home;

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "FreeFire",
+    "img": "/freefire.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Pubg",
+    "img": "/Pubg.jpg"
+  },
+  {
+    "id": 3,
+    "name": "valorant",
+    "img": "valo.jpg"
+  },
+  {
+    "id": 4,
+    "name": "fortnite",
+    "img": "for.jpg"
+  }
+]
