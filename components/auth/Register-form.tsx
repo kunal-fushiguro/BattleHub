@@ -18,9 +18,15 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { z } from "zod";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 const Registerform = () => {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const { pending } = useFormStatus();
   const form = useForm({
     resolver: zodResolver(registerSchema),
@@ -30,10 +36,34 @@ const Registerform = () => {
       password: "",
     },
   });
-  const onSubmit = (data: z.infer<typeof registerSchema>) => {
+  const notify = (err: any) => {
+    toast(err);
+  };
+  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
     setLoading(true);
     console.log(data);
     // handle api
+    const url = `/api/user/register`;
+    const resposne = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const res = await resposne.json();
+    console.log(res);
+    if (res.success) {
+      notify(res.message);
+      setTimeout(() => {
+        router.push("/auth/login");
+      }, 1000);
+    } else {
+      notify(res.message);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -97,6 +127,7 @@ const Registerform = () => {
           </form>
         </Form>
       </CarWrapper>
+      <ToastContainer position="top-center" />
     </>
   );
 };
