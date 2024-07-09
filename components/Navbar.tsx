@@ -28,12 +28,12 @@ const Navbar = () => {
 
       {login && (
         <div className="flex justify-center items-center relative h-full w-[180px] gap-6">
-          <Link href={"/login"}>
+          <Link href={"/auth/login"}>
             <Button variant="default" className="font-semibold text-lg">
               Login
             </Button>
           </Link>
-          <Link href={"signup"}>
+          <Link href={"/auth/signup"}>
             <Button variant="outline" className="font-semibold text-lg ">
               Sign-Up
             </Button>
@@ -56,7 +56,7 @@ const Navbar = () => {
                 <Link href={"/profile"}>Profile</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href={"logout"}>Logout</Link>
+                <Link href={"/auth/logout"}>Logout</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

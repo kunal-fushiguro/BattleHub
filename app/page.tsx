@@ -70,21 +70,36 @@ const Home = () => {
           })}
         </div>
       </div>
-      <div className="mt-6 flex justify-center items-center text-center flex-col w-full gap-4 md:gap-8 md:h-[150px] h-[200px]">
-        <span className="text-4xl md:text-6xl font-bold w-full h-[10%] md:h-[20%] pl-10 ">
-          About Us
-        </span>
-        <p className="md:text-lg text-center text-xs font-medium px-[10px] h-[80%] md:px-[40px]">
-          BattleHub is a premier platform for eSports enthusiasts to create,
-          participate, and manage tournaments. Our mission is to bring gamers
-          together, fostering a competitive yet friendly environment where
-          everyone can showcase their skills and passion for gaming. BattleHub
-          isn't just about competition; it's about community. Connect with
-          fellow gamers, share strategies, and form alliances. Our platform
-          fosters a vibrant community where you can make friends, find
-          teammates, and stay updated on the latest eSports news. Join BattleHub
-          today and be part of a growing network of passionate gamers.
-        </p>
+
+      <div className="w-screen md:h-[500px] h-[490px] flex md:flex-row-reverse flex-col-reverse">
+        <div className="md:w-1/2 w-full h-full flex justify-center items-center flex-col p-10 gap-8 ">
+          <h2 className="font-bold md:text-6xl text-2xl ">
+            <Typewriter
+              options={{
+                strings: ["About BattleHub"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </h2>
+          <p className="md:text-lg text-center text-xs font-medium ">
+            BattleHub is a premier platform for eSports enthusiasts to create,
+            participate, and manage tournaments. Our mission is to bring gamers
+            together, fostering a competitive yet friendly environment where
+            everyone can showcase their skills and passion for gaming. BattleHub
+            isn't just about competition; it's about community. Connect with
+            fellow gamers, share strategies, and form alliances. Our platform
+            fosters a vibrant community where you can make friends, find
+            teammates, and stay updated on the latest eSports news. Join
+            BattleHub today and be part of a growing network of passionate
+            gamers.
+          </p>
+        </div>
+        <div className="flex justify-center items-center md:p-14 p-8 h-full md:w-1/2 w-full">
+          <div className="border-4 rounded-lg border-black object-cover h-full w-full">
+            <img src="/img2.jpg" alt="" className=" h-full" />
+          </div>
+        </div>
       </div>
     </div>
   );
