@@ -55,6 +55,10 @@ const Loginform = () => {
     console.log(res);
     if (res.success) {
       notify(res.message);
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ id: res.id, name: res.name, email: res.email })
+      );
       setTimeout(() => {
         router.push("/auth/login");
       }, 1000);
