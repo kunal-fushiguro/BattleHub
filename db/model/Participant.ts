@@ -11,9 +11,9 @@ const ParticipantSchema = new Schema({
       gameuid: { type: String },
     },
   ],
-  inGameName: {
+  gamegerne: {
     type: String,
-    required: [true, "inGameName is required."],
+    required: [true, "gamegerne is required."],
   },
   description: {
     type: String,

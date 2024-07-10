@@ -39,17 +39,22 @@ const ParticipantForm = ({ id }: any) => {
   const form = useForm({
     resolver: zodResolver(ParticipantSchema),
     defaultValues: {
-      gameuid: id,
+      gameuid: "",
       gamegrene: "",
       description: "",
       contactlink: "",
       contacthandle: "",
+      password: "",
     },
   });
 
   const handleForm = async (data: z.infer<typeof ParticipantSchema>) => {
     setLoading(true);
     console.log(data);
+    const completeData = {
+      id,
+      ...data,
+    };
   };
 
   return (
@@ -161,6 +166,19 @@ const ParticipantForm = ({ id }: any) => {
                           className="resize-none"
                           {...field}
                         />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="text" placeholder="******" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

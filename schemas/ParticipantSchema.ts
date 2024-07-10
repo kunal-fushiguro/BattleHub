@@ -14,4 +14,7 @@ export const ParticipantSchema = z.object({
   contactlink: z
     .string()
     .min(10, { message: "description must be atleast 10 character long." }),
+  password: z
+    .string()
+    .min(6, { message: "Password msut be at least 6 character long." }),
 });
