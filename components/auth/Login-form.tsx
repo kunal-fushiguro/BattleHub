@@ -21,6 +21,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import Typewriter from "typewriter-effect";
 
 const Loginform = () => {
   const [loading, setLoading] = useState(false);
@@ -60,7 +61,7 @@ const Loginform = () => {
         JSON.stringify({ id: res.id, name: res.name, email: res.email })
       );
       setTimeout(() => {
-        router.push("/auth/login");
+        router.push("/");
       }, 1000);
     } else {
       notify(res.message);
@@ -113,7 +114,21 @@ const Loginform = () => {
               />
             </div>
             <Button type="submit" className="w-full" disabled={pending}>
-              {loading ? "Loading..." : "Login"}
+              {loading ? (
+                <>
+                  {" "}
+                  Loading
+                  <Typewriter
+                    options={{
+                      strings: ["....."],
+                      autoStart: true,
+                      loop: true,
+                    }}
+                  />{" "}
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
         </Form>

@@ -11,27 +11,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useEffect, useState } from "react";
-interface User {
-  id?: string;
-  name?: string;
-  email?: string;
-}
+import { useEffect, useState, useContext, useLayoutEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const [login, isLogin] = useState(false);
-  const data = localStorage.getItem("user") || "";
-  const user: User = JSON.parse(data);
-  const [loginUser, setLoginUser] = useState();
-  useEffect(() => {
-    if (user == null) {
-      isLogin((perv) => !perv);
-    } else {
-      isLogin((perv) => !perv);
+  const [login, setLogin] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const router = useRouter();
+
+  useLayoutEffect(() => {
+    const data = localStorage.getItem("user");
+    if (data) {
+      const parsedData = JSON.parse(data);
+      console.log(parsedData);
+      setUserData(parsedData);
+      setLogin(true);
     }
   }, []);
+
   return (
-    <div className="flex justify-between items-center w-screen h-24 p-2">
+    <div className="flex justify-between items-center w-[99vw] h-24 p-2 border-black border-b-2">
       <div className="flex justify-center items-center h-full w-[190px] p-2">
         <Link
           href={"/"}
@@ -66,14 +65,14 @@ const Navbar = () => {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuLabel>{user.email}</DropdownMenuLabel>
+              <DropdownMenuLabel>{userData?.email}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link href={"/profile"}>Profile</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href={"/auth/logout"}>Logout</Link>
-              </DropdownMenuItem>
+              <Link href={`/profile/${userData?.id}`}>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+              </Link>
+              <Link href={"/auth/logout"}>
+                <DropdownMenuItem>Logout</DropdownMenuItem>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
