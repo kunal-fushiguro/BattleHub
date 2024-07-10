@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useEffect, useState, useContext, useLayoutEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
@@ -19,11 +19,11 @@ const Navbar = () => {
   const [userData, setUserData] = useState(null);
   const router = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const data = localStorage.getItem("user");
     if (data) {
       const parsedData = JSON.parse(data);
-      console.log(parsedData);
+
       setUserData(parsedData);
       setLogin(true);
     }

@@ -1,3 +1,4 @@
+"use client";
 import Loginform from "@/components/auth/Login-form";
 
 const page = () => {
