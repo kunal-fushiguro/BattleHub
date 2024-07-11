@@ -13,9 +13,16 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from "react";
 
+interface UserData {
+  id: string;
+  email: string;
+  [key: string]: any;
+}
+
 const Navbar = () => {
   const [login, setLogin] = useState(false);
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const data = localStorage.getItem("user");
@@ -24,6 +31,40 @@ const Navbar = () => {
 
       setUserData(parsedData);
       setLogin(true);
+    }
+    async function getUser() {
+      const url = `/api/user/getuser`;
+      const userid: any = localStorage.getItem("user");
+      const user = JSON.parse(userid);
+      console.log(user.id);
+
+      const resposne = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({ id: user.id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const res = await resposne.json();
+      // console.log(res);
+
+      if (res.success) {
+        if (res.isSet) {
+          localStorage.setItem("isSet", JSON.stringify(false));
+          setShow(false);
+        }
+      }
+    }
+
+    const value: any = localStorage.getItem("isSet");
+    const val = JSON.parse(value);
+    // console.log(val);
+
+    if (!val) {
+      setShow(false);
+    } else {
+      getUser();
     }
   }, []);
 
@@ -65,9 +106,11 @@ const Navbar = () => {
             <DropdownMenuContent>
               <DropdownMenuLabel>{userData?.email}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <Link href={`/profile/${userData?.id}`}>
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-              </Link>
+              {show && (
+                <Link href={`/profile/${userData?.id}`}>
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                </Link>
+              )}
               <Link href={"/tournament"}>
                 <DropdownMenuItem>tournament</DropdownMenuItem>
               </Link>

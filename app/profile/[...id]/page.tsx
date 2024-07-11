@@ -1,13 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
 import ParticipantForm from "@/components/participantUpdate/ParticipantForm";
-const page = ({ params }: { params: { slug: string } }) => {
-  console.log(params);
-  const userid = params.id[0];
 
-  const [userData, setUserData] = useState({});
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+const page: React.FC<PageProps> = ({
+  params,
+}: {
+  params: { slug: string };
+}) => {
+  console.log(params);
+  const userid = params.slug; //params.id[0];
+
+  const [userData, setUserData] = useState<{ name?: string }>({});
 
   useEffect(() => {
     const data = localStorage.getItem("user");
