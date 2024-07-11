@@ -60,9 +60,15 @@ const Loginform = () => {
         "user",
         JSON.stringify({ id: res.id, name: res.name, email: res.email })
       );
-      setTimeout(() => {
-        router.push(`/profile/${res.id}`);
-      }, 1000);
+      if (res.isSet) {
+        setTimeout(() => {
+          router.push(`/`);
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          router.push(`/profile/${res.id}`);
+        }, 2000);
+      }
     } else {
       notify(res.message);
     }

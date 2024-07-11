@@ -50,6 +50,7 @@ export async function POST(request: Request) {
         id: user._id,
         email: user.email,
         name: user.name,
+        isSet: user.setParticipant,
       }),
       { status: 200 }
     );
