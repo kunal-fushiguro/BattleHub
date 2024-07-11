@@ -58,6 +58,16 @@ export async function POST(request: Request) {
       );
     }
 
+    if (isUser.setParticipant) {
+      return new NextResponse(
+        JSON.stringify({
+          success: false,
+          message: "User credentials are Updated Already",
+        }),
+        { status: 400 }
+      );
+    }
+
     const isCorrect = await ComparePassword(password, isUser.password);
 
     if (!isCorrect) {
@@ -72,10 +82,10 @@ export async function POST(request: Request) {
 
     const data = {
       userid: id,
-      inGameUid: gameuid,
+      inGameUid: [{ gerne: gamegrene, gameuid: gameuid }],
       gamegerne: gamegrene,
       description: description,
-      contactLinks: [{ contacthandle: contactlink }],
+      contactLinks: [{ handleName: contacthandle, link: contactlink }],
       tournamentList: [],
       tournamentHostedList: [],
     };

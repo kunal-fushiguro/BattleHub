@@ -1,12 +1,6 @@
 "use clinet";
-import { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -22,7 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Label } from "../ui/label";
+
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { ParticipantSchema } from "@/schemas/ParticipantSchema";
@@ -31,10 +25,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
 import { useFormStatus } from "react-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 const ParticipantForm = ({ id }: any) => {
   const [loading, setLoading] = useState(false);
   const { pending } = useFormStatus();
+  const router = useRouter();
 
   const form = useForm({
     resolver: zodResolver(ParticipantSchema),
@@ -48,14 +46,72 @@ const ParticipantForm = ({ id }: any) => {
     },
   });
 
+  const notify = (err: any) => {
+    toast(err);
+  };
+
   const handleForm = async (data: z.infer<typeof ParticipantSchema>) => {
     setLoading(true);
+    // handle api
     console.log(data);
     const completeData = {
       id,
       ...data,
     };
+
+    console.log(completeData);
+
+    const url = `/api/user/participant`;
+    const resposne = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(completeData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const res = await resposne.json();
+    console.log(res);
+    if (res.success) {
+      notify(res.message);
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
+    } else {
+      notify(res.message);
+    }
+
+    setLoading(false);
   };
+
+  useEffect(() => {
+    async function getUser() {
+      const url = `/api/user/getuser`;
+      console.log(id);
+
+      const resposne = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({ id: id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const res = await resposne.json();
+      console.log(res);
+
+      if (res.success) {
+        if (res.isSet) {
+          notify("Participant details is already Updated.");
+          setTimeout(() => {
+            router.push("/");
+          }, 3000);
+        }
+      }
+    }
+
+    getUser();
+  });
 
   return (
     <div>
@@ -178,7 +234,11 @@ const ParticipantForm = ({ id }: any) => {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input {...field} type="text" placeholder="******" />
+                        <Input
+                          {...field}
+                          type="password"
+                          placeholder="******"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -192,6 +252,7 @@ const ParticipantForm = ({ id }: any) => {
           </Form>
         </CardContent>
       </Card>
+      <ToastContainer position="top-center" />
     </div>
   );
 };

@@ -32,14 +32,16 @@ const Home = () => {
               epic battles, showcase your skills, and rise to the top of the
               leaderboards in popular games like BGMI, Free Fire, and many more.
             </p>
-            <Button
-              variant="default"
-              color="blue"
-              size="lg"
-              className="bg-red-700"
-            >
-              Explore
-            </Button>
+            <Link href={"/tournament"}>
+              <Button
+                variant="default"
+                color="blue"
+                size="lg"
+                className="bg-red-700"
+              >
+                Explore
+              </Button>
+            </Link>
           </div>
           <div className="flex justify-center items-center md:p-14 p-8 h-full md:w-1/2 w-full">
             <div className="border-4 rounded-lg border-black object-cover h-full w-full">

@@ -61,7 +61,7 @@ const Loginform = () => {
         JSON.stringify({ id: res.id, name: res.name, email: res.email })
       );
       setTimeout(() => {
-        router.push("/");
+        router.push(`/profile/${res.id}`);
       }, 1000);
     } else {
       notify(res.message);

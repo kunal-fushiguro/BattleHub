@@ -12,12 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [login, setLogin] = useState(false);
   const [userData, setUserData] = useState(null);
-  const router = useRouter();
 
   useEffect(() => {
     const data = localStorage.getItem("user");
@@ -69,6 +67,9 @@ const Navbar = () => {
               <DropdownMenuSeparator />
               <Link href={`/profile/${userData?.id}`}>
                 <DropdownMenuItem>Profile</DropdownMenuItem>
+              </Link>
+              <Link href={"/tournament"}>
+                <DropdownMenuItem>tournament</DropdownMenuItem>
               </Link>
               <Link href={"/auth/logout"}>
                 <DropdownMenuItem>Logout</DropdownMenuItem>
